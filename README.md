@@ -4,7 +4,7 @@ OneLibrary — sistema de gerenciamento de livros
 Projeto de trabalho de faculdade: um sistema simples de biblioteca que expõe APIs REST e serve uma página estática que consome essas APIs.
 
 Principais tecnologias
-- Java 17
+- Java 
 - Spring Boot 3 (Spring Web, Spring Data JPA)
 - Hibernate ORM
 - MariaDB (via Docker / docker-compose)
