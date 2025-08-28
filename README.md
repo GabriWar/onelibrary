@@ -1,5 +1,5 @@
-# rest-service-complete
-OneLibrary — sistema de gerenciamento de livros
+#OneLibrary — sistema de gerenciamento de livros
+<img width="1920" height="1012" alt="image" src="https://github.com/user-attachments/assets/9e960356-4aac-41fb-a7b1-411420af4aa3" />
 
 Projeto de trabalho de faculdade: um sistema simples de biblioteca que expõe APIs REST e serve uma página estática que consome essas APIs.
 
