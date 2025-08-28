@@ -1,0 +1,53 @@
+# Maven / Java
+/target/
+/out/
+/*.class
+*.jar
+*.war
+/*.ear
+.mvn/wrapper/maven-wrapper.jar
+
+# Maven local settings
+.settings/
+.release/
+dependency-reduced-pom.xml
+
+# Build / Gradle leftovers (if any)
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDEs
+/.idea/
+/.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and runtime
+*.log
+logs/
+hs_err_pid*
+
+# Docker
+docker-compose.override.yml
+*.env
+.env
+
+# Database / local storage
+*.db
+*.sqlite
+*.h2.db
+
+# temp files
+*.swp
+*~
+
+# Local Spring overrides
+application-local.properties

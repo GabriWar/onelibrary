@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Ensure scripts keep executable bit
+*.sh text eol=lf

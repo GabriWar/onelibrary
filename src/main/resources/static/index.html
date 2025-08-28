@@ -1,0 +1,1945 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Library API UI</title>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success-color: #059669;
+      --danger-color: #dc2626;
+      --warning-color: #d97706;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --border-radius: 8px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 8px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      color: var(--gray-700);
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      color: var(--gray-700);
+      margin-top: 24px;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    h4 {
+      color: var(--gray-600);
+      margin-top: 16px;
+      margin-bottom: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .header-actions {
+      margin: 16px 0 24px 0;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tab-container {
+      margin: 24px 0;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 20px;
+      background: var(--gray-200);
+      padding: 4px;
+      border-radius: var(--border-radius);
+      width: fit-content;
+    }
+
+    .tab-btn {
+      background: transparent;
+      color: var(--gray-600);
+      border: none;
+      padding: 10px 16px;
+      border-radius: calc(var(--border-radius) - 2px);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: var(--primary-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease;
+      height: fit-content;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .form-row > * {
+      flex: 1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 500;
+      color: var(--gray-700);
+      font-size: 0.875rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--border-radius);
+      font-size: 0.875rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+    }
+
+    button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .btn-success {
+      background: var(--success-color);
+    }
+
+    .btn-success:hover {
+      background: #047857;
+    }
+
+    .btn-danger {
+      background: var(--danger-color);
+    }
+
+    .btn-danger:hover {
+      background: #b91c1c;
+    }
+
+    .btn-warning {
+      background: var(--warning-color);
+    }
+
+    .btn-warning:hover {
+      background: #b45309;
+    }
+
+    .btn-small {
+      padding: 6px 10px;
+      font-size: 0.75rem;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--gray-600);
+      border: 1px solid var(--gray-300);
+    }
+
+    .btn-ghost:hover {
+      background: var(--gray-50);
+      transform: translateY(-1px);
+    }
+
+    /* Search bars */
+    .search-container {
+      margin-bottom: 12px;
+    }
+
+    .search-input {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-300);
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      font-size: 0.875rem;
+      width: 100%;
+    }
+
+    .search-input::placeholder {
+      color: var(--gray-600);
+    }
+
+    /* Fixed height containers for lists */
+    .list-container {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--border-radius);
+      background: white;
+    }
+
+    .user-list-container {
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--border-radius);
+      background: white;
+    }
+
+    .db-dump-container {
+      max-height: 600px;
+      overflow-y: auto;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--border-radius);
+      background: white;
+      padding: 16px;
+    }
+
+    .loans-container {
+      height: 350px;
+      overflow-y: auto;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--border-radius);
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    th {
+      background: var(--gray-100);
+      color: var(--gray-700);
+      font-weight: 600;
+      padding: 12px;
+      text-align: left;
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.875rem;
+    }
+
+    tr:hover {
+      background-color: var(--gray-50);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .muted {
+      color: var(--gray-600);
+      font-size: 0.875rem;
+      font-style: italic;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-600);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-available {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-borrowed {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .status-overdue {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+      padding: 12px;
+      background: var(--gray-50);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--gray-200);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .checkbox-item label {
+      margin: 0;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    .actions-cell {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .info-list li {
+      background: white;
+      margin-bottom: 8px;
+      padding: 12px;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--primary-color);
+      box-shadow: var(--shadow-sm);
+      font-size: 0.875rem;
+    }
+
+    .info-list li:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .info-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .result-message {
+      padding: 12px;
+      border-radius: var(--border-radius);
+      margin-top: 12px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .result-success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .result-error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    .user-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .user-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .user-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--gray-800);
+      margin-bottom: 4px;
+    }
+
+    .user-details {
+      color: var(--gray-600);
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+
+    .loan-summary {
+      background: var(--gray-50);
+      border-radius: var(--border-radius);
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .loan-count {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .loan-books {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+      color: white;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    /* Custom scrollbar */
+    .list-container::-webkit-scrollbar,
+    .user-list-container::-webkit-scrollbar,
+    .loans-container::-webkit-scrollbar,
+    .db-dump-container::-webkit-scrollbar,
+    .checkbox-group::-webkit-scrollbar,
+    .modal-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .list-container::-webkit-scrollbar-track,
+    .user-list-container::-webkit-scrollbar-track,
+    .loans-container::-webkit-scrollbar-track,
+    .db-dump-container::-webkit-scrollbar-track,
+    .checkbox-group::-webkit-scrollbar-track,
+    .modal-content::-webkit-scrollbar-track {
+      background: var(--gray-100);
+      border-radius: 3px;
+    }
+
+    .list-container::-webkit-scrollbar-thumb,
+    .user-list-container::-webkit-scrollbar-thumb,
+    .loans-container::-webkit-scrollbar-thumb,
+    .db-dump-container::-webkit-scrollbar-thumb,
+    .checkbox-group::-webkit-scrollbar-thumb,
+    .modal-content::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+
+    .list-container::-webkit-scrollbar-thumb:hover,
+    .user-list-container::-webkit-scrollbar-thumb:hover,
+    .loans-container::-webkit-scrollbar-thumb:hover,
+    .db-dump-container::-webkit-scrollbar-thumb:hover,
+    .checkbox-group::-webkit-scrollbar-thumb:hover,
+    .modal-content::-webkit-scrollbar-thumb:hover {
+      background: var(--gray-600);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+
+      .header-actions {
+        flex-direction: column;
+      }
+
+      .tab-buttons {
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .list-container,
+      .user-list-container,
+      .loans-container {
+        height: 250px;
+      }
+
+      .db-dump-container {
+        max-height: 400px;
+      }
+
+      table {
+        font-size: 0.75rem;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+
+      .actions-cell {
+        flex-direction: column;
+      }
+
+      .modal-content {
+        width: 95%;
+        margin: 10px;
+      }
+
+      .user-header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .quick-actions {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Sistema de Biblioteca Dinâmico</h1>
+  <p class="muted">Interface avançada para gerenciamento da biblioteca via API REST. Certifique-se de que o backend Spring Boot está rodando em <code>http://localhost:8080/</code></p>
+  
+  <div class="header-actions">
+    <button onclick="reloadAll()">🔄 Atualizar Tudo</button>
+    <button onclick="loadStatistics()">📊 Estatísticas</button>
+    <button onclick="listAllDb()">🗃️ Banco Completo</button>
+  </div>
+
+  <!-- Statistics Section -->
+  <div id="statisticsSection" class="stats-grid" style="display: none;">
+    <div class="stat-card">
+      <div class="stat-number" id="totalBooks">-</div>
+      <div class="stat-label">📖 Total de Livros</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="availableBooks">-</div>
+      <div class="stat-label">✅ Disponíveis</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="borrowedBooks">-</div>
+      <div class="stat-label">📤 Emprestados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="totalUsers">-</div>
+      <div class="stat-label">👥 Total de Usuários</div>
+    </div>
+  </div>
+
+  <div class="tab-container">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showTab('catalog')">📚 Catálogo</button>
+      <button class="tab-btn" onclick="showTab('users')">👥 Usuários</button>
+      <button class="tab-btn" onclick="showTab('loans')">📋 Empréstimos</button>
+    </div>
+
+    <!-- Catalog Tab -->
+    <div id="catalog" class="tab-content active">
+      <div class="grid grid-3">
+        <div class="card">
+          <h2>👨‍💼 Autores</h2>
+          <div class="form-group">
+            <div class="form-row">
+              <div>
+                <label for="authorName">Nome do Autor</label>
+                <input id="authorName" placeholder="Ex: Machado de Assis">
+              </div>
+              <div>
+                <label for="authorNationality">Nacionalidade</label>
+                <input id="authorNationality" placeholder="Ex: Brasileira">
+              </div>
+            </div>
+            <button onclick="createAuthor()">➕ Criar Autor</button>
+          </div>
+          
+          <div class="search-container">
+            <input type="text" id="searchAuthors" class="search-input" placeholder="🔍 Pesquisar autores..." onkeyup="filterAuthors()">
+          </div>
+          <div id="authorsList" class="list-container"></div>
+        </div>
+
+        <div class="card">
+          <h2>🏢 Editoras</h2>
+          <div class="form-group">
+            <div class="form-row">
+              <div>
+                <label for="publisherName">Nome da Editora</label>
+                <input id="publisherName" placeholder="Ex: Companhia das Letras">
+              </div>
+              <div>
+                <label for="publisherCity">Cidade</label>
+                <input id="publisherCity" placeholder="Ex: São Paulo">
+              </div>
+            </div>
+            <button onclick="createPublisher()">➕ Criar Editora</button>
+          </div>
+          
+          <div class="search-container">
+            <input type="text" id="searchPublishers" class="search-input" placeholder="🔍 Pesquisar editoras..." onkeyup="filterPublishers()">
+          </div>
+          <div id="publishersList" class="list-container"></div>
+        </div>
+
+        <div class="card">
+          <h2>📰 Periódicos</h2>
+          <div class="form-group">
+            <div class="form-row">
+              <div>
+                <label for="periodicTitle">Título</label>
+                <input id="periodicTitle" placeholder="Ex: Revista Científica">
+              </div>
+              <div>
+                <label for="periodicIdioma">Idioma</label>
+                <input id="periodicIdioma" placeholder="Ex: PT">
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="periodicAno">Ano</label>
+                <input id="periodicAno" placeholder="2023" type="number">
+              </div>
+              <div>
+                <label for="periodicTipo">Tipo</label>
+                <input id="periodicTipo" placeholder="Ex: científico, informativo">
+              </div>
+            </div>
+            <button onclick="createPeriodic()">➕ Criar Periódico</button>
+          </div>
+          
+          <div class="search-container">
+            <input type="text" id="searchPeriodics" class="search-input" placeholder="🔍 Pesquisar periódicos..." onkeyup="filterPeriodics()">
+          </div>
+          <div id="periodicsList" class="list-container"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📖 Livros</h2>
+        <div class="grid grid-2">
+          <div>
+            <div class="form-group">
+              <div class="form-row">
+                <div>
+                  <label for="bookTitle">Título</label>
+                  <input id="bookTitle" placeholder="Ex: Dom Casmurro">
+                </div>
+                <div>
+                  <label for="bookIdioma">Idioma</label>
+                  <input id="bookIdioma" placeholder="Ex: PT">
+                </div>
+              </div>
+              <div class="form-row">
+                <div>
+                  <label for="bookAno">Ano de Edição</label>
+                  <input id="bookAno" placeholder="2023" type="number">
+                </div>
+                <div>
+                  <label for="bookCategoria">Categoria Científica</label>
+                  <input id="bookCategoria" placeholder="Ex: Literatura">
+                </div>
+              </div>
+              
+              <label>Autores:</label>
+              <div id="bookAuthors" class="checkbox-group"></div>
+              
+              <label for="bookPublisher">Editora:</label>
+              <select id="bookPublisher">
+                <option value="">-- Selecione uma editora --</option>
+              </select>
+              
+              <button onclick="createBook()">➕ Criar Livro</button>
+            </div>
+          </div>
+          <div>
+            <div class="search-container">
+              <input type="text" id="searchBooks" class="search-input" placeholder="🔍 Pesquisar livros..." onkeyup="filterBooks()">
+            </div>
+            <div id="booksList" class="list-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users Tab -->
+    <div id="users" class="tab-content">
+      <div class="grid grid-2">
+        <div class="card">
+          <h2>➕ Novo Usuário</h2>
+          <div class="form-group">
+            <div class="form-row">
+              <div>
+                <label for="userNome">Nome Completo</label>
+                <input id="userNome" placeholder="Ex: João Silva">
+              </div>
+              <div>
+                <label for="userCpf">CPF</label>
+                <input id="userCpf" placeholder="000.000.000-00">
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="userContato">Contato</label>
+                <input id="userContato" placeholder="Email ou telefone">
+              </div>
+              <div>
+                <label for="userType">Tipo de Usuário</label>
+                <select id="userType">
+                  <option value="student">🎓 Aluno</option>
+                  <option value="professor">👨‍🏫 Professor</option>
+                  <option value="staff">👷 Funcionário</option>
+                </select>
+              </div>
+            </div>
+            <label for="userExtra">Informação Adicional</label>
+            <input id="userExtra" placeholder="Curso / Departamento / Formação">
+            <button onclick="createUser()">➕ Criar Usuário</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>👥 Buscar Usuários</h2>
+          <div class="search-container">
+            <input type="text" id="searchUsers" class="search-input" placeholder="🔍 Pesquisar por nome, CPF..." onkeyup="filterUsers()">
+          </div>
+          <div class="form-row">
+            <button onclick="loadAllUsers()">📋 Carregar Todos</button>
+            <button onclick="loadUsersWithLoans()">📚 Com Empréstimos</button>
+          </div>
+          <div id="usersList" class="user-list-container">
+            <div class="empty-state">👥 Clique em "Carregar Todos" para ver os usuários</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loans Tab -->
+    <div id="loans" class="tab-content">
+      <div class="grid grid-2">
+        <div class="card">
+          <h2>📚 Gerenciar Empréstimos</h2>
+          <div class="form-group">
+            <div class="form-row">
+              <div>
+                <label for="loanBookId">ID do Livro</label>
+                <input id="loanBookId" placeholder="1" type="number">
+              </div>
+              <div>
+                <label for="loanUserCpf">CPF do Usuário</label>
+                <input id="loanUserCpf" placeholder="000.000.000-00">
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <button onclick="borrow()" class="btn-success">📤 Emprestar</button>
+              <button onclick="ret()" class="btn-danger">📥 Devolver</button>
+            </div>
+          </div>
+          <div id="loanResult" class="list-container">
+            <div class="empty-state">
+              <div>📚 Sistema de Empréstimos</div>
+              <div style="font-size: 0.75rem; margin-top: 8px;">Digite o ID do livro e CPF para emprestar/devolver</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>📋 Empréstimos Ativos</h2>
+          <div class="form-row">
+            <button onclick="loadActiveLoans()">🔄 Carregar Empréstimos</button>
+            <button onclick="loadOverdueLoans()" class="btn-warning">⚠️ Em Atraso</button>
+          </div>
+          <div class="search-container">
+            <input type="text" id="searchLoans" class="search-input" placeholder="🔍 Pesquisar empréstimos..." onkeyup="filterLoans()">
+          </div>
+          <div id="loansList" class="loans-container">
+            <div class="empty-state">📋 Clique em "Carregar Empréstimos" para ver os empréstimos ativos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Database Overview -->
+  <div class="card">
+    <h2>🗃️ Visão Geral do Banco de Dados</h2>
+    <p class="muted">Visualização completa de todos os registros do sistema</p>
+    <div class="search-container">
+      <input type="text" id="searchDb" class="search-input" placeholder="🔍 Pesquisar em todo o banco..." onkeyup="filterDbDump()">
+    </div>
+    <div id="dbDump" class="db-dump-container">
+      <div class="empty-state">
+        <div>🗃️ Banco de Dados</div>
+        <div style="font-size: 0.75rem; margin-top: 8px;">Clique em "Banco Completo" para carregar os dados</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Details Modal -->
+  <div id="userModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeUserModal()">&times;</span>
+      <h2 id="modalUserName">Detalhes do Usuário</h2>
+      <div id="modalUserContent"></div>
+    </div>
+  </div>
+
+<script>
+// API configuration
+const api = (function(){
+  const host = (location.protocol === 'file:') ? 'http://localhost:8080' : '';
+  return path => host + '/api' + path;
+})();
+
+// Global data storage
+let authorsData = [];
+let publishersData = [];
+let booksData = [];
+let periodicsData = [];
+let usersData = [];
+let loansData = [];
+let dbDumpData = {};
+
+// Utility functions
+async function fetchJSON(url, opts) {
+  const res = await fetch(url, opts);
+  if (!res.ok) throw new Error(await res.text());
+  return res.json().catch(()=>null);
+}
+
+function showResult(elementId, message, isError = false) {
+  const el = document.getElementById(elementId);
+  el.innerHTML = `<div class="result-message ${isError ? 'result-error' : 'result-success'}">${message}</div>`;
+}
+
+// Tab management
+function showTab(tabName) {
+  // Hide all tabs
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Remove active class from all buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Show selected tab
+  document.getElementById(tabName).classList.add('active');
+  
+  // Add active class to clicked button
+  event.target.classList.add('active');
+  
+  // Load data based on tab
+  if (tabName === 'users' && usersData.length === 0) {
+    loadAllUsers();
+  } else if (tabName === 'loans' && loansData.length === 0) {
+    loadActiveLoans();
+  }
+}
+
+// Statistics
+async function loadStatistics() {
+  try {
+    const [books, students, professors, staff] = await Promise.all([
+      fetchJSON(api('/books')).catch(()=>[]),
+      fetchJSON(api('/users/students')).catch(()=>[]),
+      fetchJSON(api('/users/professors')).catch(()=>[]),
+      fetchJSON(api('/users/staff')).catch(()=>[]),
+    ]);
+
+    const totalBooks = books.length;
+    const availableBooks = books.filter(b => b.disponivel).length;
+    const borrowedBooks = totalBooks - availableBooks;
+    const totalUsers = students.length + professors.length + staff.length;
+
+    document.getElementById('totalBooks').textContent = totalBooks;
+    document.getElementById('availableBooks').textContent = availableBooks;
+    document.getElementById('borrowedBooks').textContent = borrowedBooks;
+    document.getElementById('totalUsers').textContent = totalUsers;
+    
+    document.getElementById('statisticsSection').style.display = 'grid';
+  } catch(e) {
+    console.error('Error loading statistics:', e);
+  }
+}
+
+// Filter functions
+function filterAuthors() {
+  const searchTerm = document.getElementById('searchAuthors').value.toLowerCase();
+  const filtered = authorsData.filter(a => 
+    a.nome.toLowerCase().includes(searchTerm) || 
+    (a.nacionalidade && a.nacionalidade.toLowerCase().includes(searchTerm))
+  );
+  renderAuthors(filtered);
+}
+
+function filterPublishers() {
+  const searchTerm = document.getElementById('searchPublishers').value.toLowerCase();
+  const filtered = publishersData.filter(p => 
+    p.nome.toLowerCase().includes(searchTerm) || 
+    (p.cidade && p.cidade.toLowerCase().includes(searchTerm))
+  );
+  renderPublishers(filtered);
+}
+
+function filterBooks() {
+  const searchTerm = document.getElementById('searchBooks').value.toLowerCase();
+  const filtered = booksData.filter(b => 
+    b.titulo.toLowerCase().includes(searchTerm) || 
+    (b.idioma && b.idioma.toLowerCase().includes(searchTerm)) ||
+    (b.categoriaCientifica && b.categoriaCientifica.toLowerCase().includes(searchTerm))
+  );
+  renderBooks(filtered);
+}
+
+function filterPeriodics() {
+  const searchTerm = document.getElementById('searchPeriodics').value.toLowerCase();
+  const filtered = periodicsData.filter(p => 
+    p.titulo.toLowerCase().includes(searchTerm) || 
+    (p.tipo && p.tipo.toLowerCase().includes(searchTerm)) ||
+    (p.idioma && p.idioma.toLowerCase().includes(searchTerm))
+  );
+  renderPeriodics(filtered);
+}
+
+function filterUsers() {
+  const searchTerm = document.getElementById('searchUsers').value.toLowerCase();
+  const filtered = usersData.filter(u => 
+    u.nome.toLowerCase().includes(searchTerm) || 
+    u.cpf.includes(searchTerm) ||
+    (u.contato && u.contato.toLowerCase().includes(searchTerm))
+  );
+  renderUsers(filtered);
+}
+
+function filterLoans() {
+  const searchTerm = document.getElementById('searchLoans').value.toLowerCase();
+  const filtered = loansData.filter(l => 
+    l.usuario.nome.toLowerCase().includes(searchTerm) || 
+    l.usuario.cpf.includes(searchTerm) ||
+    l.livro.titulo.toLowerCase().includes(searchTerm)
+  );
+  renderLoans(filtered);
+}
+
+function filterDbDump() {
+  const searchTerm = document.getElementById('searchDb').value.toLowerCase();
+  if (!searchTerm) {
+    renderDbDump(dbDumpData);
+    return;
+  }
+  
+  const filtered = {};
+  for (const [key, items] of Object.entries(dbDumpData)) {
+    filtered[key] = items.filter(item => 
+      JSON.stringify(item).toLowerCase().includes(searchTerm)
+    );
+  }
+  renderDbDump(filtered);
+}
+
+// Render functions
+function renderAuthors(authors) {
+  const el = document.getElementById('authorsList');
+  if(!authors || authors.length === 0){ 
+    el.innerHTML = '<div class="empty-state">📝 Nenhum autor encontrado</div>'; 
+    return;
+  }
+  
+  let html = '<table><tr><th>ID</th><th>Nome</th><th>Nacionalidade</th></tr>';
+  for (const a of authors) {
+    html += `<tr><td><strong>#${a.id}</strong></td><td>${a.nome}</td><td>${a.nacionalidade || 'N/A'}</td></tr>`;
+  }
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+function renderPublishers(publishers) {
+  const el = document.getElementById('publishersList');
+  if(!publishers || publishers.length === 0){ 
+    el.innerHTML = '<div class="empty-state">🏢 Nenhuma editora encontrada</div>'; 
+    return;
+  }
+  
+  let html = '<table><tr><th>ID</th><th>Nome</th><th>Cidade</th></tr>';
+  for (const p of publishers) {
+    html += `<tr><td><strong>#${p.id}</strong></td><td>${p.nome}</td><td>${p.cidade || 'N/A'}</td></tr>`;
+  }
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+function renderBooks(books) {
+  const el = document.getElementById('booksList');
+  if(!books || books.length === 0){ 
+    el.innerHTML = '<div class="empty-state">📚 Nenhum livro encontrado</div>'; 
+    return;
+  }
+  
+  let html = '<table><tr><th>ID</th><th>Título</th><th>Ano</th><th>Status</th><th>Ações</th></tr>';
+  for (const b of books){
+    const statusBadge = b.disponivel 
+      ? '<span class="status-badge status-available">✅ Disponível</span>' 
+      : '<span class="status-badge status-borrowed">❌ Emprestado</span>';
+    
+    html += `<tr>
+      <td><strong>#${b.id}</strong></td>
+      <td><strong>${b.titulo}</strong><br>
+          <small class="muted">${b.categoriaCientifica || 'N/A'} • ${b.idioma || 'N/A'}</small></td>
+      <td>${b.anoEdicao || 'N/A'}</td>
+      <td>${statusBadge}</td>
+      <td class="actions-cell">
+        <button onclick="borrowBook(${b.id})" class="btn-small btn-success" ${!b.disponivel ? 'disabled' : ''}>📤</button>
+        <button onclick="returnBook(${b.id})" class="btn-small btn-danger" ${b.disponivel ? 'disabled' : ''}>📥</button>
+        <button onclick="showBookDetails(${b.id})" class="btn-small btn-ghost">👁️</button>
+      </td>
+    </tr>`;
+  }
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+function renderPeriodics(periodics) {
+  const el = document.getElementById('periodicsList');
+  if(!periodics || periodics.length === 0){ 
+    el.innerHTML = '<div class="empty-state">📰 Nenhum periódico encontrado</div>'; 
+    return;
+  }
+  
+  let html = '<table><tr><th>ID</th><th>Título</th><th>Ano</th><th>Tipo</th></tr>';
+  for (const p of periodics) {
+    html += `<tr>
+      <td><strong>#${p.id}</strong></td>
+      <td><strong>${p.titulo}</strong><br><small class="muted">${p.idioma || 'N/A'}</small></td>
+      <td>${p.anoEdicao || 'N/A'}</td>
+      <td>${p.tipo || 'N/A'}</td>
+    </tr>`;
+  }
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+function renderUsers(users) {
+  const el = document.getElementById('usersList');
+  if(!users || users.length === 0){ 
+    el.innerHTML = '<div class="empty-state">👥 Nenhum usuário encontrado</div>'; 
+    return;
+  }
+  
+  let html = '';
+  for (const user of users) {
+    const userIcon = user.tipo === 'student' ? '🎓' : 
+                     user.tipo === 'professor' ? '👨‍🏫' : '👷';
+    const userTypeLabel = user.tipo === 'student' ? 'Aluno' : 
+                         user.tipo === 'professor' ? 'Professor' : 'Funcionário';
+    const extraInfo = user.curso || user.departamento || user.formacao || 'N/A';
+    
+    // Count active loans for this user
+    const userLoans = loansData.filter(l => l.usuario.cpf === user.cpf);
+    const activeLoanCount = userLoans.length;
+    
+    html += `
+      <div class="user-card">
+        <div class="user-header">
+          <div class="user-info">
+            <div class="user-name">${userIcon} ${user.nome}</div>
+            <div class="user-details">
+              <strong>CPF:</strong> ${user.cpf}<br>
+              <strong>Tipo:</strong> ${userTypeLabel}<br>
+              <strong>${user.tipo === 'student' ? 'Curso' : user.tipo === 'professor' ? 'Departamento' : 'Formação'}:</strong> ${extraInfo}
+              ${user.contato ? `<br><strong>Contato:</strong> ${user.contato}` : ''}
+            </div>
+          </div>
+          <div class="quick-actions">
+            <button onclick="showUserDetails('${user.cpf}')" class="btn-small">👁️ Ver</button>
+            <button onclick="quickLoanToUser('${user.cpf}')" class="btn-small btn-success">📚 Emprestar</button>
+          </div>
+        </div>
+        ${activeLoanCount > 0 ? `
+        <div class="loan-summary">
+          <div class="loan-count">📚 ${activeLoanCount} empréstimo${activeLoanCount > 1 ? 's' : ''} ativo${activeLoanCount > 1 ? 's' : ''}</div>
+          <div class="loan-books">${userLoans.map(l => l.livro.titulo).join(', ')}</div>
+        </div>
+        ` : ''}
+      </div>
+    `;
+  }
+  
+  el.innerHTML = html;
+}
+
+function renderLoans(loans) {
+  const el = document.getElementById('loansList');
+  if(!loans || loans.length === 0){ 
+    el.innerHTML = '<div class="empty-state">📋 Nenhum empréstimo encontrado</div>'; 
+    return;
+  }
+  
+  let html = '<table><tr><th>Usuário</th><th>Livro</th><th>Data Empréstimo</th><th>Data Devolução</th><th>Status</th><th>Ações</th></tr>';
+  
+  for (const loan of loans) {
+    const borrowDate = new Date(loan.dataEmprestimo).toLocaleDateString('pt-BR');
+    const returnDate = loan.dataDevolucao ? new Date(loan.dataDevolucao).toLocaleDateString('pt-BR') : 'Não devolvido';
+    
+    // Calculate if overdue (assuming 14 days loan period)
+    const dueDate = new Date(loan.dataEmprestimo);
+    dueDate.setDate(dueDate.getDate() + 14);
+    const isOverdue = !loan.dataDevolucao && new Date() > dueDate;
+    
+    const statusBadge = loan.dataDevolucao 
+      ? '<span class="status-badge status-available">✅ Devolvido</span>'
+      : isOverdue 
+      ? '<span class="status-badge status-overdue">⚠️ Em Atraso</span>'
+      : '<span class="status-badge status-borrowed">📤 Emprestado</span>';
+    
+    const userIcon = loan.usuario.tipo === 'student' ? '🎓' : 
+                     loan.usuario.tipo === 'professor' ? '👨‍🏫' : '👷';
+    
+    html += `<tr>
+      <td>
+        ${userIcon} <strong>${loan.usuario.nome}</strong><br>
+        <small class="muted">${loan.usuario.cpf}</small>
+      </td>
+      <td>
+        <strong>${loan.livro.titulo}</strong><br>
+        <small class="muted">ID: ${loan.livro.id}</small>
+      </td>
+      <td>${borrowDate}</td>
+      <td>${returnDate}</td>
+      <td>${statusBadge}</td>
+      <td class="actions-cell">
+        ${!loan.dataDevolucao ? `<button onclick="returnBook(${loan.livro.id})" class="btn-small btn-danger">📥 Devolver</button>` : ''}
+        <button onclick="showUserDetails('${loan.usuario.cpf}')" class="btn-small btn-ghost">👁️ Usuário</button>
+      </td>
+    </tr>`;
+  }
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+function renderDbDump(data) {
+  const el = document.getElementById('dbDump');
+  let html = '';
+  
+  const sections = [
+    { key: 'authors', title: '👨‍💼 Autores', empty: 'Nenhum autor cadastrado' },
+    { key: 'publishers', title: '🏢 Editoras', empty: 'Nenhuma editora cadastrada' },
+    { key: 'books', title: '📖 Livros', empty: 'Nenhum livro cadastrado' },
+    { key: 'periodics', title: '📰 Periódicos', empty: 'Nenhum periódico cadastrado' },
+    { key: 'students', title: '🎓 Alunos', empty: 'Nenhum aluno cadastrado' },
+    { key: 'professors', title: '👨‍🏫 Professores', empty: 'Nenhum professor cadastrado' },
+    { key: 'staff', title: '👷 Funcionários', empty: 'Nenhum funcionário cadastrado' },
+    { key: 'loans', title: '📋 Empréstimos', empty: 'Nenhum empréstimo registrado' }
+  ];
+
+  for (const section of sections) {
+    html += `<h3>${section.title}</h3>`;
+    const items = data[section.key] || [];
+    
+    if (!items.length) {
+      html += `<p class="muted">${section.empty}</p>`;
+    } else {
+      html += '<ul class="info-list">';
+      for (const item of items) {
+        let itemText = '';
+        if (section.key === 'authors') {
+          itemText = `<strong>#${item.id}</strong> — ${item.nome} ${item.nacionalidade ? `(${item.nacionalidade})` : ''}`;
+        } else if (section.key === 'publishers') {
+          itemText = `<strong>#${item.id}</strong> — ${item.nome} ${item.cidade ? `— ${item.cidade}` : ''}`;
+        } else if (section.key === 'books') {
+          const status = item.disponivel ? '✅ Disponível' : '❌ Emprestado';
+          itemText = `<strong>#${item.id}</strong> — ${item.titulo} (${item.anoEdicao || 'N/A'}) — ${status}`;
+        } else if (section.key === 'periodics') {
+          itemText = `<strong>#${item.id}</strong> — ${item.titulo} (${item.anoEdicao || 'N/A'}) — ${item.tipo || 'N/A'}`;
+        } else if (section.key === 'students') {
+          itemText = `<strong>CPF:</strong> ${item.cpf} — ${item.nome} — <em>Curso:</em> ${item.curso || 'N/A'}`;
+        } else if (section.key === 'professors') {
+          itemText = `<strong>CPF:</strong> ${item.cpf} — ${item.nome} — <em>Depto:</em> ${item.departamento || 'N/A'}`;
+        } else if (section.key === 'staff') {
+          itemText = `<strong>CPF:</strong> ${item.cpf} — ${item.nome} — <em>Formação:</em> ${item.formacao || 'N/A'}`;
+        } else if (section.key === 'loans') {
+          const borrowDate = new Date(item.dataEmprestimo).toLocaleDateString('pt-BR');
+          const returnDate = item.dataDevolucao ? new Date(item.dataDevolucao).toLocaleDateString('pt-BR') : 'Ativo';
+          itemText = `${item.usuario.nome} — ${item.livro.titulo} — Emprestado: ${borrowDate} — Status: ${returnDate}`;
+        }
+        html += `<li>${itemText}</li>`;
+      }
+      html += '</ul>';
+    }
+  }
+  
+  el.innerHTML = html;
+}
+
+// Authors
+async function loadAuthors() {
+  try{
+    const authors = await fetchJSON(api('/authors'));
+    authorsData = authors || [];
+    renderAuthors(authorsData);
+
+    // populate book author selectors
+    const authorsDiv = document.getElementById('bookAuthors');
+    authorsDiv.innerHTML = '';
+    for (const a of authorsData) {
+      const div = document.createElement('div');
+      div.className = 'checkbox-item';
+      div.innerHTML = `
+        <input type="checkbox" id="author_${a.id}" value="${a.id}">
+        <label for="author_${a.id}">${a.nome} (#${a.id})</label>
+      `;
+      authorsDiv.appendChild(div);
+    }
+  }catch(e){ 
+    console.error(e);
+    document.getElementById('authorsList').innerHTML = '<div class="empty-state">❌ Erro ao carregar autores</div>';
+  }
+}
+
+async function createAuthor(){
+  const nome = document.getElementById('authorName').value.trim();
+  const nac = document.getElementById('authorNationality').value.trim();
+  
+  if (!nome) {
+    alert('Por favor, informe o nome do autor');
+    return;
+  }
+  
+  try{
+    await fetchJSON(api('/authors'), {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome:nome,nacionalidade:nac})
+    });
+    document.getElementById('authorName').value='';
+    document.getElementById('authorNationality').value='';
+    document.getElementById('searchAuthors').value='';
+    await loadAuthors();
+    showResult('authorsList', '✅ Autor criado com sucesso!');
+    setTimeout(() => loadAuthors(), 2000);
+  }catch(e){ 
+    alert('Erro ao criar autor: '+e.message); 
+  }
+}
+
+// Publishers
+async function loadPublishers(){
+  try{
+    const pubs = await fetchJSON(api('/publishers'));
+    publishersData = pubs || [];
+    renderPublishers(publishersData);
+
+    // populate publisher select
+    const select = document.getElementById('bookPublisher');
+    select.innerHTML = '<option value="">-- Selecione uma editora --</option>';
+    for (const p of publishersData) {
+      select.insertAdjacentHTML('beforeend', `<option value="${p.id}">${p.nome} (#${p.id})</option>`);
+    }
+  }catch(e){ 
+    console.error(e); 
+    document.getElementById('publishersList').innerHTML = '<div class="empty-state">❌ Erro ao carregar editoras</div>';
+  }
+}
+
+async function createPublisher(){
+  const nome = document.getElementById('publisherName').value.trim();
+  const cidade = document.getElementById('publisherCity').value.trim();
+  
+  if (!nome) {
+    alert('Por favor, informe o nome da editora');
+    return;
+  }
+  
+  try{
+    await fetchJSON(api('/publishers'), {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome:nome,cidade:cidade})
+    });
+    document.getElementById('publisherName').value='';
+    document.getElementById('publisherCity').value='';
+    document.getElementById('searchPublishers').value='';
+    await loadPublishers();
+    showResult('publishersList', '✅ Editora criada com sucesso!');
+    setTimeout(() => loadPublishers(), 2000);
+  }catch(e){ 
+    alert('Erro ao criar editora: '+e.message); 
+  }
+}
+
+// Books
+async function loadBooks(){
+  try{
+    const books = await fetchJSON(api('/books'));
+    booksData = books || [];
+    renderBooks(booksData);
+  }catch(e){ 
+    console.error(e); 
+    document.getElementById('booksList').innerHTML = '<div class="empty-state">❌ Erro ao carregar livros</div>';
+  }
+}
+
+async function createBook(){
+  const titulo = document.getElementById('bookTitle').value.trim();
+  const idioma = document.getElementById('bookIdioma').value.trim();
+  const ano = parseInt(document.getElementById('bookAno').value) || null;
+  const categoria = document.getElementById('bookCategoria').value.trim();
+  const publisherId = document.getElementById('bookPublisher').value || null;
+  const authorChecks = Array.from(document.querySelectorAll('#bookAuthors input[type=checkbox]:checked')).map(i=>parseInt(i.value));
+  
+  if (!titulo) {
+    alert('Por favor, informe o título do livro');
+    return;
+  }
+  
+  const body = {
+    titulo:titulo,
+    idioma:idioma,
+    anoEdicao:ano,
+    categoriaCientifica:categoria,
+    authorIds:authorChecks,
+    publisherId: publisherId?parseInt(publisherId):null
+  };
+  
+  try{
+    await fetchJSON(api('/books'), {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    // Clear form
+    document.getElementById('bookTitle').value='';
+    document.getElementById('bookIdioma').value='';
+    document.getElementById('bookAno').value='';
+    document.getElementById('bookCategoria').value='';
+    document.getElementById('bookPublisher').value='';
+    document.getElementById('searchBooks').value='';
+    document.querySelectorAll('#bookAuthors input[type=checkbox]').forEach(cb => cb.checked = false);
+    
+    await loadBooks();
+    showResult('booksList', '✅ Livro criado com sucesso!');
+    setTimeout(() => loadBooks(), 2000);
+  }catch(e){ 
+    alert('Erro ao criar livro: '+e.message); 
+  }
+}
+
+async function showBookDetails(bookId) {
+  const book = booksData.find(b => b.id === bookId);
+  if (!book) {
+    alert('Livro não encontrado!');
+    return;
+  }
+  
+  let details = `📖 **${book.titulo}**\n\n`;
+  details += `ID: ${book.id}\n`;
+  details += `Ano: ${book.anoEdicao || 'N/A'}\n`;
+  details += `Idioma: ${book.idioma || 'N/A'}\n`;
+  details += `Categoria: ${book.categoriaCientifica || 'N/A'}\n`;
+  details += `Status: ${book.disponivel ? '✅ Disponível' : '❌ Emprestado'}\n`;
+  
+  if (book.autores && book.autores.length > 0) {
+    details += `Autores: ${book.autores.map(a => a.nome).join(', ')}\n`;
+  }
+  
+  if (book.editora) {
+    details += `Editora: ${book.editora.nome}`;
+  }
+  
+  alert(details);
+}
+
+// Periodics
+async function loadPeriodics(){
+  try{
+    const list = await fetchJSON(api('/periodics'));
+    periodicsData = list || [];
+    renderPeriodics(periodicsData);
+  }catch(e){ 
+    console.error(e); 
+    document.getElementById('periodicsList').innerHTML = '<div class="empty-state">❌ Erro ao carregar periódicos</div>';
+  }
+}
+
+async function createPeriodic(){
+  const titulo = document.getElementById('periodicTitle').value.trim();
+  const idioma = document.getElementById('periodicIdioma').value.trim();
+  const ano = parseInt(document.getElementById('periodicAno').value) || null;
+  const tipo = document.getElementById('periodicTipo').value.trim();
+  
+  if (!titulo) {
+    alert('Por favor, informe o título do periódico');
+    return;
+  }
+  
+  try{
+    await fetchJSON(api('/periodics'), {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({titulo:titulo,idioma:idioma,anoEdicao:ano,tipo:tipo})
+    });
+    document.getElementById('periodicTitle').value='';
+    document.getElementById('periodicIdioma').value='';
+    document.getElementById('periodicAno').value='';
+    document.getElementById('periodicTipo').value='';
+    document.getElementById('searchPeriodics').value='';
+    await loadPeriodics();
+    showResult('periodicsList', '✅ Periódico criado com sucesso!');
+    setTimeout(() => loadPeriodics(), 2000);
+  }catch(e){ 
+    alert('Erro ao criar periódico: '+e.message); 
+  }
+}
+
+// Users
+async function loadAllUsers() {
+  try {
+    const [students, professors, staff] = await Promise.all([
+      fetchJSON(api('/users/students')).catch(()=>[]),
+      fetchJSON(api('/users/professors')).catch(()=>[]),
+      fetchJSON(api('/users/staff')).catch(()=>[]),
+    ]);
+
+    // Add type to each user for identification
+    const allUsers = [
+      ...students.map(s => ({...s, tipo: 'student'})),
+      ...professors.map(p => ({...p, tipo: 'professor'})),
+      ...staff.map(s => ({...s, tipo: 'staff'}))
+    ];
+
+    usersData = allUsers;
+    
+    // Load loans to show user loan information
+    await loadActiveLoans();
+    
+    renderUsers(usersData);
+  } catch(e) {
+    console.error(e);
+    document.getElementById('usersList').innerHTML = '<div class="empty-state">❌ Erro ao carregar usuários</div>';
+  }
+}
+
+async function loadUsersWithLoans() {
+  await loadAllUsers();
+  await loadActiveLoans();
+  
+  // Filter only users with active loans
+  const usersWithLoans = usersData.filter(user => 
+    loansData.some(loan => loan.usuario.cpf === user.cpf && !loan.dataDevolucao)
+  );
+  
+  renderUsers(usersWithLoans);
+}
+
+async function createUser(){
+  const nome = document.getElementById('userNome').value.trim();
+  const cpf = document.getElementById('userCpf').value.trim();
+  const contato = document.getElementById('userContato').value.trim();
+  const type = document.getElementById('userType').value;
+  const extra = document.getElementById('userExtra').value.trim();
+  
+  if (!nome || !cpf) {
+    alert('Por favor, preencha nome e CPF');
+    return;
+  }
+  
+  let endpoint = '';
+  let body = {nome, cpf, contato};
+  
+  if (type === 'student') {
+    endpoint = '/users/students';
+    body.curso = extra;
+  } else if (type === 'professor') {
+    endpoint = '/users/professors';
+    body.departamento = extra;
+  } else if (type === 'staff') {
+    endpoint = '/users/staff';
+    body.formacao = extra;
+  }
+  
+  try{
+    await fetchJSON(api(endpoint), {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    
+    // Clear form
+    document.getElementById('userNome').value='';
+    document.getElementById('userCpf').value='';
+    document.getElementById('userContato').value='';
+    document.getElementById('userExtra').value='';
+    
+    alert(`✅ ${type === 'student' ? 'Aluno' : type === 'professor' ? 'Professor' : 'Funcionário'} criado com sucesso!`);
+    
+    // Reload users if currently viewing them
+    if (usersData.length > 0) {
+      loadAllUsers();
+    }
+  }catch(e){ 
+    alert('Erro ao criar usuário: '+e.message); 
+  }
+}
+
+// User details modal
+async function showUserDetails(userCpf) {
+  const user = usersData.find(u => u.cpf === userCpf);
+  if (!user) {
+    alert('Usuário não encontrado!');
+    return;
+  }
+  
+  // Get user's loans
+  const userLoans = loansData.filter(l => l.usuario.cpf === userCpf);
+  const activeLoans = userLoans.filter(l => !l.dataDevolucao);
+  const completedLoans = userLoans.filter(l => l.dataDevolucao);
+  
+  const userIcon = user.tipo === 'student' ? '🎓' : 
+                   user.tipo === 'professor' ? '👨‍🏫' : '👷';
+  const userTypeLabel = user.tipo === 'student' ? 'Aluno' : 
+                       user.tipo === 'professor' ? 'Professor' : 'Funcionário';
+  const extraInfo = user.curso || user.departamento || user.formacao || 'N/A';
+  
+  let modalContent = `
+    <div style="margin-bottom: 20px;">
+      <h3>${userIcon} ${user.nome}</h3>
+      <p><strong>CPF:</strong> ${user.cpf}</p>
+      <p><strong>Tipo:</strong> ${userTypeLabel}</p>
+      <p><strong>${user.tipo === 'student' ? 'Curso' : user.tipo === 'professor' ? 'Departamento' : 'Formação'}:</strong> ${extraInfo}</p>
+      ${user.contato ? `<p><strong>Contato:</strong> ${user.contato}</p>` : ''}
+    </div>
+    
+    <h4>📚 Empréstimos Ativos (${activeLoans.length})</h4>
+  `;
+  
+  if (activeLoans.length === 0) {
+    modalContent += '<p class="muted">Nenhum empréstimo ativo</p>';
+  } else {
+    modalContent += '<table><tr><th>Livro</th><th>Data Empréstimo</th><th>Status</th><th>Ações</th></tr>';
+    for (const loan of activeLoans) {
+      const borrowDate = new Date(loan.dataEmprestimo).toLocaleDateString('pt-BR');
+      const dueDate = new Date(loan.dataEmprestimo);
+      dueDate.setDate(dueDate.getDate() + 14);
+      const isOverdue = new Date() > dueDate;
+      
+      const statusBadge = isOverdue 
+        ? '<span class="status-badge status-overdue">⚠️ Em Atraso</span>'
+        : '<span class="status-badge status-borrowed">📤 Emprestado</span>';
+      
+      modalContent += `<tr>
+        <td><strong>${loan.livro.titulo}</strong><br><small>ID: ${loan.livro.id}</small></td>
+        <td>${borrowDate}</td>
+        <td>${statusBadge}</td>
+        <td><button onclick="returnBook(${loan.livro.id}); closeUserModal();" class="btn-small btn-danger">📥 Devolver</button></td>
+      </tr>`;
+    }
+    modalContent += '</table>';
+  }
+  
+  modalContent += `<h4 style="margin-top: 24px;">📋 Histórico de Empréstimos (${completedLoans.length})</h4>`;
+  
+  if (completedLoans.length === 0) {
+    modalContent += '<p class="muted">Nenhum empréstimo anterior</p>';
+  } else {
+    modalContent += '<div style="max-height: 200px; overflow-y: auto;"><table><tr><th>Livro</th><th>Empréstimo</th><th>Devolução</th></tr>';
+    for (const loan of completedLoans.slice(0, 10)) { // Show last 10
+      const borrowDate = new Date(loan.dataEmprestimo).toLocaleDateString('pt-BR');
+      const returnDate = new Date(loan.dataDevolucao).toLocaleDateString('pt-BR');
+      
+      modalContent += `<tr>
+        <td><strong>${loan.livro.titulo}</strong></td>
+        <td>${borrowDate}</td>
+        <td>${returnDate}</td>
+      </tr>`;
+    }
+    modalContent += '</table></div>';
+    
+    if (completedLoans.length > 10) {
+      modalContent += `<p class="muted">... e mais ${completedLoans.length - 10} empréstimos anteriores</p>`;
+    }
+  }
+  
+  document.getElementById('modalUserName').textContent = `${userIcon} ${user.nome}`;
+  document.getElementById('modalUserContent').innerHTML = modalContent;
+  document.getElementById('userModal').classList.add('show');
+}
+
+function closeUserModal() {
+  document.getElementById('userModal').classList.remove('show');
+}
+
+async function quickLoanToUser(userCpf) {
+  const bookId = prompt('Digite o ID do livro para emprestar:');
+  if (!bookId) return;
+  
+  document.getElementById('loanBookId').value = bookId;
+  document.getElementById('loanUserCpf').value = userCpf;
+  
+  // Switch to loans tab and perform the loan
+  showTab('loans');
+  document.querySelector('[onclick="showTab(\'loans\')"]').classList.add('active');
+  
+  setTimeout(() => {
+    borrow();
+  }, 500);
+}
+
+// Loans
+async function loadActiveLoans() {
+  try {
+    const loans = await fetchJSON(api('/loans'));
+    loansData = loans || [];
+    renderLoans(loansData);
+  } catch(e) {
+    console.error(e);
+    document.getElementById('loansList').innerHTML = '<div class="empty-state">❌ Erro ao carregar empréstimos</div>';
+  }
+}
+
+async function loadOverdueLoans() {
+  await loadActiveLoans();
+  
+  // Filter overdue loans (assuming 14 days loan period)
+  const overdueLoans = loansData.filter(loan => {
+    if (loan.dataDevolucao) return false; // Already returned
+    
+    const dueDate = new Date(loan.dataEmprestimo);
+    dueDate.setDate(dueDate.getDate() + 14);
+    return new Date() > dueDate;
+  });
+  
+  renderLoans(overdueLoans);
+}
+
+async function borrow() {
+  const bookId = document.getElementById('loanBookId').value;
+  const cpf = document.getElementById('loanUserCpf').value.trim();
+  
+  if (!bookId || !cpf) {
+    alert('Por favor, preencha ID do livro e CPF');
+    return;
+  }
+  
+  try {
+    await fetchJSON(api(`/loans/borrow?bookId=${bookId}&userCpf=${cpf}`), { method: 'POST' });
+    showResult('loanResult', '✅ Livro emprestado com sucesso!');
+    
+    // Refresh data
+    await Promise.all([loadBooks(), loadActiveLoans()]);
+    
+    // Clear form
+    document.getElementById('loanBookId').value = '';
+    document.getElementById('loanUserCpf').value = '';
+    
+    // Update statistics if visible
+    if (document.getElementById('statisticsSection').style.display !== 'none') {
+      loadStatistics();
+    }
+  } catch(e) {
+    showResult('loanResult', '❌ Erro: ' + e.message, true);
+  }
+}
+
+async function ret() {
+  const bookId = document.getElementById('loanBookId').value;
+  
+  if (!bookId) {
+    alert('Por favor, informe o ID do livro');
+    return;
+  }
+  
+  try {
+    await fetchJSON(api(`/loans/return?bookId=${bookId}`), { method: 'POST' });
+    showResult('loanResult', '✅ Livro devolvido com sucesso!');
+    
+    // Refresh data
+    await Promise.all([loadBooks(), loadActiveLoans()]);
+    
+    // Clear form
+    document.getElementById('loanBookId').value = '';
+    
+    // Update statistics if visible
+    if (document.getElementById('statisticsSection').style.display !== 'none') {
+      loadStatistics();
+    }
+  } catch(e) {
+    showResult('loanResult', '❌ Erro: ' + e.message, true);
+  }
+}
+
+// Quick loan functions from book list
+async function borrowBook(bookId) {
+  const cpf = prompt('Digite o CPF do usuário:');
+  if (!cpf) return;
+  
+  document.getElementById('loanBookId').value = bookId;
+  document.getElementById('loanUserCpf').value = cpf;
+  await borrow();
+}
+
+async function returnBook(bookId) {
+  document.getElementById('loanBookId').value = bookId;
+  await ret();
+}
+
+// Full DB dump
+async function listAllDb(){
+  try {
+    const [authors, publishers, books, periodics, students, professors, staff, loans] = await Promise.all([
+      fetchJSON(api('/authors')).catch(()=>[]),
+      fetchJSON(api('/publishers')).catch(()=>[]),
+      fetchJSON(api('/books')).catch(()=>[]),
+      fetchJSON(api('/periodics')).catch(()=>[]),
+      fetchJSON(api('/users/students')).catch(()=>[]),
+      fetchJSON(api('/users/professors')).catch(()=>[]),
+      fetchJSON(api('/users/staff')).catch(()=>[]),
+      fetchJSON(api('/loans')).catch(()=>[]),
+    ]);
+
+    dbDumpData = {
+      authors: authors || [],
+      publishers: publishers || [],
+      books: books || [],
+      periodics: periodics || [],
+      students: students || [],
+      professors: professors || [],
+      staff: staff || [],
+      loans: loans || []
+    };
+
+    document.getElementById('searchDb').value = '';
+    renderDbDump(dbDumpData);
+  } catch(e) {
+    console.error('Error loading database:', e);
+    document.getElementById('dbDump').innerHTML = '<div class="empty-state">❌ Erro ao carregar dados do banco</div>';
+  }
+}
+
+// Load all data on page load
+async function reloadAll() {
+  try {
+    await Promise.all([
+      loadAuthors(),
+      loadPublishers(), 
+      loadBooks(),
+      loadPeriodics()
+    ]);
+    
+    // Load statistics
+    await loadStatistics();
+  } catch(e) {
+    console.error('Error reloading data:', e);
+  }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+  const modal = document.getElementById('userModal');
+  if (event.target === modal) {
+    closeUserModal();
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  reloadAll();
+});
+</script>
+</body>
+</html>

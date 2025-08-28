@@ -1,0 +1,8 @@
+docker-compose down
+docker volume rm complete_mariadb_data  # confirm the exact volume name if different
+docker-compose up -d
+
+
+
+
+./mvnw -Dspring-boot.run.arguments="--app.seed.bulk=true" spring-boot:run
